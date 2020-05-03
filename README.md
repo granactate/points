@@ -1,0 +1,2 @@
+# points
+Random test

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Evolution Points</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+    <link rel="stylesheet" href="public/css/index.css"/>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<script>
+    var data = <%- data %>;
+</script>
+<body>
+<div class="container">
+    <h1 class="header">Map</h1>
+
+    <hr/>
+
+    <ul>
+        <% files.forEach( function(filename) { %>
+            <li>
+                <%= filename %>
+            </li>
+        <% }); %>
+    </ul>
+
+    <div id="app" class="container">
+        <div class="buttons-container">
+            <button class="waves-effect waves-light btn" v-on:click="toggleActive">Next bot</button>
+            <button class="waves-effect waves-light btn" v-on:click="startAnimation">Play</button>
+
+        </div>
+
+        <div class="board">
+
+
+            <template v-for="row in board">
+                <div v-for="item in row" class="tile" v-bind:class="{active: item === 'A' }">
+                </div>
+            </template>
+        </div>
+    </div>
+</div>
+<script src="public/js/index.js"></script>
+</body>
+
+</html>

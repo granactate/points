@@ -1,0 +1,41 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(20, 30px) ;
+  grid-template-rows: repeat(20, 30px);
+  margin-bottom: 3rem;
+}
+
+.buttons-container{
+  margin-bottom: 1rem;
+}
+
+.tile {
+  height: 100%;
+  width: 100%;
+  background: transparent;
+  border-style: solid solid none none;
+  border-width: 1px 1px 0 0;
+  color: gray;
+}
+
+.tile:nth-child(20n + 1) {
+  border-left:  1px solid gray;
+}
+
+.tile:nth-last-child(-n + 20) {
+  border-bottom: 1px solid gray;
+}
+
+.tile:nth-child(20n),
+.tile:nth-child(20n + 1),
+.tile:nth-last-child(-n + 20),
+.tile:nth-last-child(n + 380){
+  background-color: darkred;
+}
+
+
+
+
+.tile.active {
+  background: gray;
+}

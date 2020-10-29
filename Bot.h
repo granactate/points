@@ -19,6 +19,7 @@ class Bot {
         void followDirection(Position *current);
         int fatherId;
         int motherId;
+        int weight;
 
     public:
         Bot();
@@ -46,6 +47,7 @@ class Bot {
         string getTextToPrint();
 
         Position* createRandomMove();
+        // void calculateWeight();
 };
 
 

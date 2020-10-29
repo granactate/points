@@ -7,3 +7,4 @@ node_server/node_modules
 program
 node_server/.idea
 node_server/npm-debug.log
+./dist

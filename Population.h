@@ -6,6 +6,7 @@
 
 #include <string>
 #include <vector>
+#include <future>
 
 using namespace std;
 

@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <sstream>
 #include <tuple>
+#include "utils/HashTable.h"
 
 using namespace std;
 
@@ -331,3 +332,16 @@ string Bot::getTextToPrint() {
 
     return ss.str();
 }
+
+/*
+void Bot::calculateWeight() {
+    HashTable table;
+    
+    for( int i = 0; i < currentPosition; i++) 
+    {
+        Position *current = *(dirDNA + i);
+        table.addTuple(current->getI(), current->getJ());        
+    }
+}
+
+*/

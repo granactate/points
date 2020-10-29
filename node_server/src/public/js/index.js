@@ -21,7 +21,8 @@
         currentStep: 0,
         clearId: null,
         active: false,
-        botNumber: 0
+        botNumber: 0,
+        initialStep: 0
       },
       created: function(){
         var step = this.bot.dna[0];
@@ -59,6 +60,10 @@
         toggleTileState: function(i, j) {
           this.board[i][j] = this.board[i][j] === 'A' ? '' : 'A';
           app.$forceUpdate();
+        },
+        setBotNumber: function() {
+          this.botNumber = this.initialStep;
+          console.log(this.botNumber);
         },
         startAnimation: function() {
           console.time("moving")

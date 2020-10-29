@@ -21,7 +21,7 @@
 
     <hr/>
 
-    <ul>
+    <ul class="files">
         <% files.forEach( function(filename) { %>
             <li>
                 <%= filename %>
@@ -33,7 +33,10 @@
         <div class="buttons-container">
             <button class="waves-effect waves-light btn" v-on:click="toggleActive">Next bot</button>
             <button class="waves-effect waves-light btn" v-on:click="startAnimation">Play</button>
-
+            <div>
+                <input type="text" v-model="initialStep"/>
+                <button class="waves-effect waves-light btn" v-on:click="setBotNumber()">Set Initial Step</button>
+            </div>
         </div>
 
         <div class="board">

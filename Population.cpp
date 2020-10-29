@@ -7,6 +7,8 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <future>
+#include <thread>
 
 using namespace std;
 
@@ -90,7 +92,13 @@ void Population::sortPopulation() {
 Bot* Population::mergeBots(Bot *b1, Bot *b2, int id) {
     GenomeMixer gm = GenomeMixer();
     int total = boardSize * boardSize;
-    Position **newDNA = gm.mergeListDNA(b1, b2, total);
+
+    promise<Position**> promise;
+    future<Position**> observer = promise.get_future();
+    thread th(GenomeMixer::mergeListDNAAsync, b1, b2, total, move(promise));
+    Position **newDNA = observer.get();
+
+    th.join();
     Bot *newB1 = new Bot(board, boardSize, newDNA, id);
 
     (*newB1).setFatherId((*b1).getId());
@@ -140,9 +148,9 @@ void Population::iterate() {
     {
         Bot *current = *(dirBots + i);
         int j = 0;
-        while ((*current).isAlive())
+        while (current->isAlive())
         {
-            (*current).move();
+            current->move();
         }
     }
 
@@ -162,7 +170,7 @@ void Population::iterate() {
     {
         Bot *current = *(dirBots + i);
         string separator = (i != quantity -1) ? "," : "" ;
-        ss << (*current).getTextToPrint() << separator;
+        ss << current->getTextToPrint() << separator;
     }
 
     ss << "]}";

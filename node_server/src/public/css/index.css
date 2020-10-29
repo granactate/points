@@ -33,9 +33,12 @@
   background-color: darkred;
 }
 
-
-
-
 .tile.active {
   background: gray;
+}
+
+
+.files {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
 }

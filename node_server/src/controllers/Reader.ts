@@ -6,7 +6,8 @@ export class ReaderController {
   readInfo(): string[] {
     const directoryPath = path.join(__dirname, '../../../outputs');
 
-    const files = fs.readdirSync(directoryPath);
+    const files = fs.readdirSync(directoryPath)
+      .filter(filename => filename !== '.gitkeep');
     const regex = /gen_([0-9]+).json/;
 
     return files.sort((a, b) => {

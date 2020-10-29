@@ -2,6 +2,9 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <future>
+#include <thread>
+#include <chrono>
 
 #include "Bot.h"
 #include "Position.h"
@@ -93,7 +96,13 @@ void testMergeDNA() {
     Bot *b2 = new Bot(tmp, 3, dna2, 2);
 
     GenomeMixer gm = GenomeMixer();
-    Position **newDNA = gm.mergeListDNA(b1, b2, 25);
+    // Position **newDNA = gm.mergeListDNA(b1, b2, 25);
+    promise<Position**> promise;
+    future<Position**> observer = promise.get_future();
+    thread th(GenomeMixer::mergeListDNAAsync, b1, b2, 25, move(promise));
+    Position **newDNA = observer.get();
+
+    th.join();
 
     for(int i = 0; i < 25; i++) {
         Position *p = *(newDNA + i);
@@ -112,17 +121,23 @@ int main()
 {   
     int boardSize = 20;
     string **board  = getBoard( boardSize,  boardSize);
-
+    
     int i ;
-    int populationSize = 2000;
+    int populationSize = 100;
+    int iterations = 100;
+    auto start = chrono::steady_clock::now();
+
     Population population = Population(populationSize, boardSize, board);
     population.start();
     cout << "Population Initialized" << endl;
-    
-    for(int i=0; i< 100; i++) {
+    for(int i=0; i< iterations; i++) {
         population.iterate();
         cout << "Iteration #" << i + 1 << endl;
-    }    
+    }
+
+    auto end = chrono::steady_clock::now();
+    chrono::duration<double> total = end - start;
+    cout << "Execute time: " << total.count() << endl;
 
     return 0;
 }
